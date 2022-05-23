@@ -88,15 +88,8 @@ export async function createCampaign(web3, account) {
 export async function donateToCampaign(web3, account, campaignAddress, token, amount) {
   CrowdFund.setProvider(web3.currentProvider);
   const crowdfund = await CrowdFund.deployed();
-  const donate = await crowdfund.recieveDonations("0xc6cFd6fC3F7dF7e4249A5d7215E8E364b0989D1e", "ETH", String(10**10), { from: account, gas: 100000, value: String(10**10) });
+  const donate = await crowdfund.recieveDonations(campaignAddress, token, amount, { from: account, gas: 3000000, value: amount });
   console.log("donate", donate);
-  
-}
-
-export async function sendEther(web3, account, campaignAddress, token, amount) {
-  const instance = new web3.eth.Contract(CrowdFund.abi, CrowdFund.address);
-  const ans = await instance.methods.recieveDonations(campaignAddress, "ETH", String(10**10)).send({from: account, gas: 100000, value: String(10**10)})
-  console.log(ans);
 }
 
 export async function endCampaign(web3, account, campaignAddress, end_reason) {

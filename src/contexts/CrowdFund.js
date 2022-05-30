@@ -48,8 +48,8 @@ function reducer(state = INITIAL_STATE, action) {
           owner: action.data["creator"],
           type: action.data["_cType"],
           amountToRaise: action.data["_vAmounts"].reduce((a,b) => a + b.toNumber()).toString(),
-          vendorList: action.data["_vAddresses"].map((address,index) => ( { address, amount: action.data["_vAmounts"][index] } )),
-          amountRaised: 0,
+          vendorList: action.data["_vAddresses"].map((address,index) => ( { address, amount: action.data["_vAmounts"][index].toString() } )),
+          amountRaised: "0",
           donorList: [],
           isEnded: false
         }
@@ -88,7 +88,7 @@ function reducer(state = INITIAL_STATE, action) {
             return {
               ...c,
               donorList: newDonorList,
-              amountRaised: c.amountRaised + action.data["amount_out"]
+              amountRaised: (c.amountRaised + action.data["amount_out"]).toString()
             }
           }
           return c;

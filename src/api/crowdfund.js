@@ -54,7 +54,7 @@ export async function getCampaigns(web3, account) {
       type: newCampaign["3"],
       amountToRaise: newCampaign["5"].reduce((a,b) => a + b.toNumber()).toString(),
       vendorList: newCampaign["4"].map((address,index) => ( { address, amount: newCampaign["5"][index] } )),
-      amountRaised: newCampaign["7"].length > 0 ? newCampaign["7"].reduce((a,b) => a + b.toNumber()).toString() : [],
+      amountRaised: newCampaign["7"].length > 0 ? newCampaign["7"].reduce((a,b) => a + b.toNumber()).toString() : "0",
       donorList: newCampaign["6"].length > 0 ? newCampaign["6"].map((address,index) => ( { address, amount: newCampaign["7"][index] } )) : [],
       isEnded: newCampaign["8"]
     });

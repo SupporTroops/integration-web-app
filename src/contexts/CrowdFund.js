@@ -47,7 +47,7 @@ function reducer(state = INITIAL_STATE, action) {
           description: action.data["_desc"],
           owner: action.data["creator"],
           type: action.data["_cType"],
-          amountToRaise: action.data["_vAmounts"].reduce((a,b) => a + b.toNumber()).toString(),
+          amountToRaise: action.data["_vAmounts"].reduce((a,b) => a.add(b)).toString(),
           vendorList: action.data["_vAddresses"].map((address,index) => ( { address, amount: action.data["_vAmounts"][index].toString() } )),
           amountRaised: "0",
           donorList: [],

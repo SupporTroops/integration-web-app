@@ -52,10 +52,10 @@ export async function getCampaigns(web3, account) {
       description: newCampaign["1"],
       owner: newCampaign["2"],
       type: newCampaign["3"],
-      amountToRaise: newCampaign["5"].reduce((a,b) => a + b.toNumber()).toString(),
-      vendorList: newCampaign["4"].map((address,index) => ( { address, amount: newCampaign["5"][index] } )),
-      amountRaised: newCampaign["7"].length > 0 ? newCampaign["7"].reduce((a,b) => a + b.toNumber()).toString() : "0",
-      donorList: newCampaign["6"].length > 0 ? newCampaign["6"].map((address,index) => ( { address, amount: newCampaign["7"][index] } )) : [],
+      amountToRaise: newCampaign["5"].reduce((a,b) => a.add(b)).toString(),
+      vendorList: newCampaign["4"].map((address,index) => ( { address, amount: newCampaign["5"][index].toString() } )),
+      amountRaised: newCampaign["7"].length > 0 ? newCampaign["7"].reduce((a,b) => a.add(b)).toString() : "0",
+      donorList: newCampaign["6"].length > 0 ? newCampaign["6"].map((address,index) => ( { address, amount: newCampaign["7"][index].toString() } )) : [],
       isEnded: newCampaign["8"]
     });
   }
@@ -77,7 +77,7 @@ export async function createCampaign(web3, account) {
     // description: newCampaign["3"],
     // owner: newCampaign["0"],
     // type: newCampaign["4"],
-    // amountToRaise: newCampaign["6"].reduce((a,b) => a + b.toNumber()).toString(),
+    // amountToRaise: newCampaign["6"].reduce((a,b) => a.add(b)).toString(),
     // vendorList: newCampaign["5"].map((address,index) => ( { address, amount: newCampaign["6"][index] } )),
     // amountRaised: 0,
     // donorList: [],

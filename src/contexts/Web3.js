@@ -3,7 +3,8 @@ import { subscribeToAccount, subscribeToNetId } from "../api/web3";
 
 const INITIAL_STATE = {
     account: "",
-    web3: null
+    web3: null,
+    netId: 0
 };
 
 // action: { type, account, web3 }
@@ -95,25 +96,24 @@ export function Updater() {
         }
     }, [state.web3, state.account]);
 
-    // useEffect(() => {
-    //     if (state.web3) {
-    //         const unsubscribe = subscribeToNetId(state.web3, (error, netId) => {
-    //             if (error) {
-    //                 console.error(error);
-    //             }
-    //             if (netId) {
-    //                 if (state.netId === 0) {
-    //                     updateNetId({ netId });
-    //                 } else if (netId !== state.netId) {
-    //                     console.log("from net id")
-    //                     window.location.reload();
-    //                 }
-    //             }
-    //         });
+    useEffect(() => {
+        if (state.web3) {
+            const unsubscribe = subscribeToNetId(state.web3, (error, netId) => {
+                if (error) {
+                    console.error(error);
+                }
+                if (netId) {
+                    if (state.netId === 0) {
+                        updateNetId({ netId });
+                    } else if (netId !== state.netId) {
+                        window.location.reload()
+                    }
+                }
+            });
 
-    //         return unsubscribe;
-    //     }
-    // }, [state.web3, state.netId, updateNetId]);
+            return unsubscribe;
+        }
+    }, [state.web3, state.netId, updateNetId]);
 
     return null;
 }
